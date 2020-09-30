@@ -3,33 +3,40 @@ const express = require('express')
 // const createError = require('http-errors')
 const bodyParser= require('body-parser');
 // require('dotenv').config()
+// const path = require('path')
 const TELEGRAM_API_TOKEN = process.env.TELEGRAM_API_TOKEN || ''
 
-const app = express()
-
-app.use(bodyParser.json())
-// app.use(morgan('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+const App = express()
 
 
-app.get('/', async (req, res, next) => {
-    res.send('Hello Wrld')
+// App.use(express.static(path.join(__dirname, 'public')))
+// App.use(express.json())
+// App.use(express.urlencoded({ extended: false }))
+                
+
+App.use(bodyParser.json())
+// App.use(morgan('dev'))
+App.use(express.json())
+App.use(express.urlencoded({ extended: true }))
+
+
+App.get('/', async (req, res, next) => {
+    res.send('Hello W0rld')
 })
 
-app.post('/webhooks/telegram', (req, res, next) => {
+App.post('/webhooks/telegram', (req, res, next) => {
     console.log(req.body)
     res.send({status:"ok"})
 });
 //https://telegram-bot-api-hunter.herokuapp.com/webhooks/telegram
 
-// app.use(async(req,res,next)=>{
+// App.use(async(req,res,next)=>{
 
 //     // next(createError.NotFound('This route doesnt exist'))
 //     next(createError.NotFound())
 // })
 
-app.use((err, req, res, next) => {
+App.use((err, req, res, next) => {
     res.status(err.status || 500)
     res.send({
         error: {
@@ -39,11 +46,4 @@ app.use((err, req, res, next) => {
     })
 })
 
-
-const PORT = process.env.PORT || 3002
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`localhost:${PORT}`)
-})
-
+module.exports = App;

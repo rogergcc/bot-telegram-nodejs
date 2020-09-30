@@ -1,35 +1,16 @@
-const express = require('express');
-
-// const bodyParser = require('body-parser');
-
-const path = require('path')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 
-
-// "body-parser": "^1.19.0",
-dotenv.config();
-
-const app = express();
-
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-                
+const CONFIG = require('./app/config/config');
+const App = require('./app/app');
 
 
-app.get('/', async (req, res, next) => {
-  res.render('index')
-})
-
-
-const PORT = process.env.PORT;
-
-
-app.listen(PORT, () => {
-
-    console.log(`Server listening on port ${PORT}`);
-    console.log(`localhost:${PORT}`);
+App.listen(CONFIG.PORT,function(error){
+  if(error) return console.log(error);
+  console.log(`Servidor corriendo en el Puerto: ${CONFIG.HOST}:${CONFIG.PORT}`);
 });
 
-// Heroku git steps deploy
-// https://devcenter.heroku.com/articles/git
+
+//del projecto https://github.com/josevladimir/API-REST-Youtube-2018/blob/master/server.js
