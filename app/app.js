@@ -5,6 +5,7 @@ const bodyParser= require('body-parser');
 // require('dotenv').config()
 // const path = require('path')
 const TELEGRAM_API_TOKEN = process.env.TELEGRAM_API_TOKEN || ''
+const sendMessage = require('./utils/telegrambot');
 
 const App = express()
 
@@ -25,8 +26,19 @@ App.get('/', async (req, res, next) => {
 })
 
 App.post('/webhooks/telegram', (req, res, next) => {
-    console.log(req.body)
-    res.send({status:"ok"})
+    console.log(req.body);
+
+    const requestMessage = req.body;
+    
+    const sendMessageData = {
+        conversationId: requestMessage.chat_id,
+        text: `Hola Q talll!!!!`
+      }
+
+    sendMessage(sendMessageData);
+
+    res.send({status:"ok"});
+
 });
 //https://telegram-bot-api-hunter.herokuapp.com/webhooks/telegram
 
