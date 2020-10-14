@@ -1,7 +1,7 @@
 # bot-telegram-nodejs
 bot telgram nodejs pokemon. Send number and return pokemon. bothunter in telegram
 
-bothunter in telegram
+  _bothunter_ in telegram
 
 Send a number of pokemon for the information.
 
