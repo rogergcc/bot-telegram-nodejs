@@ -44,9 +44,15 @@ App.use(bodyParser.json())
 App.use(express.json())
 App.use(express.urlencoded({ extended: true }))
 
+App.get('/', (req, res, next) => {
+  // console.log(req.body);
+
+  res.send("INDEX cambiooooo");
+
+});
+
 App.post('/webhooks/telegram', (req, res, next) => {
   console.log(req.body);
-
 
   res.send({ status: "ok" });
 
@@ -56,13 +62,13 @@ const isNumeric = (num) => (typeof (num) === 'number' || typeof (num) === "strin
 
 
 // App.use(bot.webhookCallback('/webhooks/telegram'))
-// bot.telegram.setWebhook('https://telegram-bot-api-hunter.herokuapp.com/webhooks/telegram')
+// bot.telegram.setWebhook('process.env.WEBHOOK')
 bot.use((ctx, next) => {
   //ctx.reply('usaste el bot');
   // next();
   // console.log(ctx.update);
   // console.log("Chat ",ctx.update.message.chat);
-  console.log("Texto Pokemon  ", ctx.update.message.text);
+  console.log("Texto Pokemon: ", ctx.update.message.text);
 
   if (!isNumeric(ctx.update.message.text)) {
     ctx.reply("Only number");

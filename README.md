@@ -19,7 +19,14 @@ telegraf
   ```
     npm run dev
   ```
-
+.env
+```
+DB_NAME=bot_telegram
+HOST=http://localhost
+PORT=3002
+TELEGRAM_API_TOKEN=
+WEBHOOK=
+```
 
 Send a number of pokemon for the information.
 
