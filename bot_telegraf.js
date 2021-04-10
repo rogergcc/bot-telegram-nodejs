@@ -26,11 +26,11 @@ const match = (pokemon, id_or_name) =>
 const get_pokemon = (id_or_name) => pokemon.find((p) => match(p, id_or_name));
 
 // find all matching pokemon
-// function* find_pokemon(id_or_name) {
-//   for (const p of pokemon) {
-//     if (match(p, id_or_name)) yield p;
-//   }
-// }
+function* find_pokemon(id_or_name) {
+  for (const p of pokemon) {
+    if (match(p, id_or_name)) yield p;
+  }
+}
 
 const App = express();
 App.use(bodyParser.json());
@@ -87,8 +87,8 @@ bot.use((ctx, next) => {
                             Weight: ${pokemon.weight} lbs
                             [Image](${pokemon.ThumbnailImage.replace("detail", "full")})`; // higher res image
 
-  // ctx.reply(data);
-  ctx.reply(format_text);
+  ctx.reply(data);
+  // ctx.replyWithMarkdown(format_text);
 
   ctx.state.users = 75;
   next(ctx); //next is passed because we can modify data
