@@ -72,12 +72,15 @@ bot.use((ctx, next) => {
   // populate an array of inline query results
   const results = [];
 
-  const data = get_pokemon(ctx.update.message.text);
+  const pokemon = get_pokemon(ctx.update.message.text);
 
   const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1); // capitalise a word
   const format_type = (pokemon) => pokemon.type.map(capitalise).join("/"); // join multiple types into one word
   const format_height = (height) =>
     `${Math.floor(height / 12)}' ${height % 12}"`; // display height in feet and inches
+
+
+    {"abilities":["Poison Point","Rivalry"],"detailPageURL":"/us/pokedex/nidorino","weight":43,"weakness":["Ground","Psychic"],"number":"033","height":35,"collectibles_slug":"nidorino","featured":"true","slug":"nidorino","name":"Nidorino","ThumbnailAltText":"Nidorino","ThumbnailImage":"https://assets.pokemon.com/assets/cms2/img/pokedex/detail/033.png","id":33,"type":["poison"]}
 
   // format pokemon data as a text string to use in a message
   const format_text = (pokemon) => `*${pokemon.name} (#${pokemon.number})*
@@ -87,8 +90,8 @@ bot.use((ctx, next) => {
                             Weight: ${pokemon.weight} lbs
                             [Image](${pokemon.ThumbnailImage.replace("detail", "full")})`; // higher res image
 
-  ctx.reply(data);
-  // ctx.replyWithMarkdown(format_text);
+  // ctx.reply(pokemon);
+  ctx.replyWithMarkdown(format_text);
 
   ctx.state.users = 75;
   next(ctx); //next is passed because we can modify data
