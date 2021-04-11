@@ -23,7 +23,9 @@ const match = (pokemon, id_or_name) =>
   pokemon.id == id_or_name || pokemon.slug.includes(id_or_name.toLowerCase());
 
 // find the first matching pokemon
-const get_pokemon = (id_or_name) => pokemon.find((p) => match(p, id_or_name));
+// const get_pokemon = (id_or_name) => pokemon.find((p) => match(p, id_or_name));
+
+const get_pokemon = id_or_name => pokemon.find(p => match(p, id_or_name));
 
 // find all matching pokemon
 function* find_pokemon(id_or_name) {
@@ -54,6 +56,14 @@ const isNumeric = (num) =>
   (typeof num === "number" || (typeof num === "string" && num.trim() !== "")) &&
   !isNaN(num);
 
+    // format pokemon data as a text string to use in a message
+    const format_text = (pokemon) => `*${pokemon.name} (#${pokemon.number})*
+    Type: ${format_type(pokemon)}
+    Abilities: ${pokemon.abilities.join(", ")}
+    Height: ${format_height(pokemon.height)}
+    Weight: ${pokemon.weight} lbs
+    [Image](${pokemon.ThumbnailImage.replace("detail", "full")})`; // higher res image
+
 // App.use(bot.webhookCallback('/webhooks/telegram'))
 // bot.telegram.setWebhook('process.env.WEBHOOK')
 bot.use((ctx, next) => {
@@ -74,6 +84,7 @@ bot.use((ctx, next) => {
 
   const pokemon = get_pokemon(ctx.update.message.text);
 
+  
   const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1); // capitalise a word
   const format_type = (pokemon) => pokemon.type.map(capitalise).join("/"); // join multiple types into one word
   const format_height = (height) =>
@@ -82,16 +93,10 @@ bot.use((ctx, next) => {
 
 
 
-  // format pokemon data as a text string to use in a message
-  const format_text = (pokemon) => `*${pokemon.name} (#${pokemon.number})*
-                            Type: ${format_type(pokemon)}
-                            Abilities: ${pokemon.abilities.join(", ")}
-                            Height: ${format_height(pokemon.height)}
-                            Weight: ${pokemon.weight} lbs
-                            [Image](${pokemon.ThumbnailImage.replace("detail", "full")})`; // higher res image
+
 
   // ctx.reply(pokemon);
-  ctx.replyWithMarkdown(format_text);
+  ctx.replyWithMarkdown(format_text(pokemon));
 
   ctx.state.users = 75;
   next(ctx); //next is passed because we can modify data
