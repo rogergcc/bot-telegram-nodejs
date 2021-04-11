@@ -80,7 +80,7 @@ bot.use((ctx, next) => {
     `${Math.floor(height / 12)}' ${height % 12}"`; // display height in feet and inches
 
 
-    {"abilities":["Poison Point","Rivalry"],"detailPageURL":"/us/pokedex/nidorino","weight":43,"weakness":["Ground","Psychic"],"number":"033","height":35,"collectibles_slug":"nidorino","featured":"true","slug":"nidorino","name":"Nidorino","ThumbnailAltText":"Nidorino","ThumbnailImage":"https://assets.pokemon.com/assets/cms2/img/pokedex/detail/033.png","id":33,"type":["poison"]}
+
 
   // format pokemon data as a text string to use in a message
   const format_text = (pokemon) => `*${pokemon.name} (#${pokemon.number})*
