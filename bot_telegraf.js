@@ -58,20 +58,17 @@ const isNumeric = (num) =>
   (typeof num === "number" || (typeof num === "string" && num.trim() !== "")) &&
   !isNaN(num);
 
+const capitalise = (word) => word.charAt(0).toUpperCase() + word.slice(1); // capitalise a word
+const format_type = (pokemon) => pokemon.type.map(capitalise).join("/"); // join multiple types into one word
+const format_height = (height) => `${Math.floor(height / 12)}' ${height % 12}"`; // display height in feet and inches
 
-
-  const capitalise = word => word.charAt(0).toUpperCase() + word.slice(1);        // capitalise a word
-  const format_type = pokemon => pokemon.type.map(capitalise).join('/');          // join multiple types into one word
-  const format_height = height => `${Math.floor(height / 12)}' ${height % 12}"`;  // display height in feet and inches
-  
-  // format pokemon data as a text string to use in a message
-  const format_text = pokemon => `*${pokemon.name} (#${pokemon.number})*
+// format pokemon data as a text string to use in a message
+const format_text = (pokemon) => `*${pokemon.name} (#${pokemon.number})*
   Type: ${format_type(pokemon)}
-  Abilities: ${pokemon.abilities.join(', ')}
+  Abilities: ${pokemon.abilities.join(", ")}
   Height: ${format_height(pokemon.height)}
   Weight: ${pokemon.weight} lbs
-  [Image](${pokemon.ThumbnailImage.replace('detail', 'full')})`; // higher res image
-
+  [Image](${pokemon.ThumbnailImage.replace("detail", "full")})`; // higher res image
 
 // App.use(bot.webhookCallback('/webhooks/telegram'))
 // bot.telegram.setWebhook('process.env.WEBHOOK')
@@ -80,10 +77,10 @@ bot.use((ctx, next) => {
   // next();
   // console.log(ctx.update);
   // console.log("Chat ",ctx.update.message.chat);
-  console.log("Texto Pokemon: ", ctx.update.message.text);
+  console.log("Pokemon Nº: ", ctx.update.message.text);
 
   if (!isNumeric(ctx.update.message.text)) {
-    ctx.reply("Only number");
+    ctx.reply("Please type only number");
     return;
   }
   //console.log(ctx.botInfo);
@@ -91,12 +88,16 @@ bot.use((ctx, next) => {
   // populate an array of inline query results
   const results = [];
 
+  
   const pokemon = get_pokemon(ctx.update.message.text);
+  
+  if (typeof pokemon == 'undefined'){
 
+    ctx.reply("Pokemon not found :(");
+    return;
+  }
 
-
-
-
+  console.log(pokemon);
   // ctx.reply(pokemon);
   ctx.replyWithMarkdown(format_text(pokemon));
 
