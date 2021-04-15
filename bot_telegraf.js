@@ -23,9 +23,11 @@ const match = (pokemon, id_or_name) =>
   pokemon.id == id_or_name || pokemon.slug.includes(id_or_name.toLowerCase());
 
 // find the first matching pokemon
-// const get_pokemon = (id_or_name) => pokemon.find((p) => match(p, id_or_name));
+const get_pokemon = (id_or_name) => pokemon.find((p) => match(p, id_or_name));
 
-const get_pokemon = id_or_name => pokemon.find(p => match(p, id_or_name));
+//const get_pokemon = id_or_name => pokemon.find(p => match(p, id_or_name));
+
+//https://gist.github.com/yi-jiayu/6a9a84ff8d3ef754d96f6752cf459905#file-index-js
 
 // find all matching pokemon
 function* find_pokemon(id_or_name) {
@@ -69,7 +71,7 @@ const isNumeric = (num) =>
   Height: ${format_height(pokemon.height)}
   Weight: ${pokemon.weight} lbs
   [Image](${pokemon.ThumbnailImage.replace('detail', 'full')})`; // higher res image
-    
+
 
 // App.use(bot.webhookCallback('/webhooks/telegram'))
 // bot.telegram.setWebhook('process.env.WEBHOOK')
