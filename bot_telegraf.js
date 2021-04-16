@@ -97,7 +97,7 @@ bot.use((ctx, next) => {
     return;
   }
 
-  console.log(pokemon);
+  //console.log(pokemon);
   // ctx.reply(pokemon);
   ctx.replyWithMarkdown(format_text(pokemon));
 
