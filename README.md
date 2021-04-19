@@ -30,6 +30,9 @@ WEBHOOK=
 
 Send a number of pokemon for the information.
 
-if not show details go to 
+## demo
+https://t.me/rc_movie_dev_bot
 
-https://telegram-bot-api-hunter.herokuapp.com/ 
+## docs
+https://core.telegram.org/bots/api
+
